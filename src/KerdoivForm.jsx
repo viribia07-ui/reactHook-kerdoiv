@@ -1,6 +1,7 @@
 import { useForm } from "react-hook-form";
 import { KERDESEK } from "./questions";
 import { useState } from "react";
+import Spinner from "./Spinner";
 
 export default function KerdoivForm() {
     const [isLoading, isLoadingSet] = useState()
@@ -30,7 +31,7 @@ export default function KerdoivForm() {
 
   return (
     <>
-      {isLoading && <p>Processing...</p>}
+      {isLoading && <Spinner>Processing...</Spinner>}
       {!isLoading && <form onSubmit={handleSubmit(onSubmit)}>
       <h2>Kérdőív</h2>
       <h3>Kitöltési útmutató: Helyes válasz = igen.</h3>
