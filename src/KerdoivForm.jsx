@@ -1,11 +1,14 @@
 import { useForm } from "react-hook-form";
 import { KERDESEK } from "./questions";
+import { useState } from "react";
 
 export default function KerdoivForm() {
+    const [isLoading, isLoadingSet] = useState()
+
     const { register, handleSubmit, reset,
         formState:{
         errors, isSubmitting, isSubmitSuccessful
-    } } = useForm()
+    } } = useForm() //obj-t ad
 
   // élő összegzéshez figyeljük a válaszokat
  
@@ -14,13 +17,16 @@ export default function KerdoivForm() {
     // data.valaszok pl.: { q1: "igen", q2: "nem", ... }
     //data.preventDefault()
     console.log("Beküldött adatok:", data);
+    isLoadingSet(false)
     await new Promise((r) => setTimeout(r, 800)); // szimulált API
     reset()
 
   };
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
+    <>
+      {isLoading && <p>Processing...</p>}
+      {!isLoading && <form onSubmit={handleSubmit(onSubmit)}>
       <h2>Kérdőív</h2>
       <h3>Kitöltési útmutató: Helyes válasz = igen.</h3>
 
@@ -84,6 +90,8 @@ export default function KerdoivForm() {
 
         </ul>
       </details>
-    </form>
+    </form>}
+      
+    </>
   );
 }
