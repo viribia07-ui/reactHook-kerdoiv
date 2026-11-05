@@ -9,7 +9,7 @@ function App() {
 
   return (
     <>
-      <h1>Nemzethy konzultáció</h1>
+      <h1>Nemczethi konzultáció</h1>
       <div className="card">
         <KerdoivForm />
       </div>

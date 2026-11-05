@@ -8,7 +8,12 @@ export default function KerdoivForm() {
     const { register, handleSubmit, reset,
         formState:{
         errors, isSubmitting, isSubmitSuccessful
-    } } = useForm() //obj-t ad
+    } } = useForm({
+        defaultValues: {
+            nev: "",
+            email: ""
+        }
+    }) //obj-t ad
 
   // élő összegzéshez figyeljük a válaszokat
  
@@ -18,7 +23,7 @@ export default function KerdoivForm() {
     //data.preventDefault()
     console.log("Beküldött adatok:", data);
     isLoadingSet(false)
-    await new Promise((r) => setTimeout(r, 800)); // szimulált API
+    await new Promise((r) => setTimeout(r, 5000)); // szimulált API
     reset()
 
   };
@@ -40,9 +45,8 @@ export default function KerdoivForm() {
             id="nev"
             name="nev"
             {...register("nev")}
-           
           />
-          <p className="hiba">errors.nev.message</p>
+          {errors.nev && <p className="hiba">{errors.nev.message}</p>}
         </div>
 
         <div>
@@ -55,7 +59,7 @@ export default function KerdoivForm() {
             {...register("email")}
 
           />
-          <p className="hiba">errors.email.message</p>
+          {errors.email && <p className="hiba">{errors.email.message}</p>}
         </div>
       </fieldset>
 
