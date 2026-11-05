@@ -4,7 +4,7 @@ import { useState } from "react";
 import Spinner from "./Spinner";
 
 export default function KerdoivForm() {
-    const [isLoading, isLoadingSet] = useState()
+    const [isLoading, setLoading] = useState()
 
     const { register, handleSubmit, reset,
         formState:{
@@ -23,9 +23,19 @@ export default function KerdoivForm() {
     // data.valaszok pl.: { q1: "igen", q2: "nem", ... }
     //data.preventDefault()
     console.log("Beküldött adatok:", data);
-    isLoadingSet(false)
-    await new Promise((r) => setTimeout(r, 5000)); // szimulált API
-    reset()
+    
+    setLoading(true)
+    fetch("TODO", {
+        method: "POST",
+        headers: {"Content-Type": "application/json"},
+        body: JSON.stringify(data)
+    })
+    .then(console.log)
+    .catch(console.warn)
+    .finally(()=>{
+        reset()
+        setLoading(false)
+    })
 
   };
 
